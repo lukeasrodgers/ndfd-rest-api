@@ -1,5 +1,6 @@
 require_relative "ndfdrestapi/current_conditions"
 require_relative "ndfdrestapi/http_service"
+require_relative "ndfdrestapi/ndfd_response"
 
 require "open-uri"
 require "nori"

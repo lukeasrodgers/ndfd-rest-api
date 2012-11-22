@@ -13,21 +13,22 @@ module NdfdRestApi
           :numDays => 1
         }
         xml_doc = HttpService.get(:summarized, params)
-        parsed = Nori.parse(xml_doc)
-        new(parsed)
+        response = NdfdResponse.new(xml_doc)
+        new(response)
       end
 
     end
 
-    def initialize(parsed)
-      @data = parsed["dwml"]["data"]
-      @conditions = {}
-      parameters = @data["parameters"]
-      temperature = parameters["temperature"]
-      max = temperature.detect{|temp| temp["@type"] == "maximum" }["value"]
-      min = temperature.detect{|temp| temp["@type"] == "minimum" }["value"]
-      @conditions[:max] = max.to_i
-      @conditions[:min] = min.to_i
+    def initialize(response)
+      unless response.error
+        @conditions = {}
+        parameters = response.data["parameters"]
+        temperature = parameters["temperature"]
+        max = temperature.detect{|temp| temp["@type"] == "maximum" }["value"]
+        min = temperature.detect{|temp| temp["@type"] == "minimum" }["value"]
+        @conditions[:max] = max.to_i
+        @conditions[:min] = min.to_i
+      end
     end
 
   end
