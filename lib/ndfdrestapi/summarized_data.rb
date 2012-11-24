@@ -1,6 +1,6 @@
 module NdfdRestApi
   class SummarizedData
-    attr_reader :data, :conditions, :locations
+    attr_reader :data, :locations
 
     class <<self
       private :new
@@ -17,10 +17,7 @@ module NdfdRestApi
       if response.error
         raise "#{response.error[:message]}"
       else
-        num_days = response.num_days
-        num_locations = response.num_locations
         @locations = response.parse_locations
-        @conditions = {}
         @data = response.data
         # @units = temperature.first["@units"]
       end

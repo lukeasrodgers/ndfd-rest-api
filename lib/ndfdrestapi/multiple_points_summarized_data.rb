@@ -1,6 +1,5 @@
 module NdfdRestApi
   class MultiplePointsSummarizedData < SummarizedData
-    attr_reader :data
 
     class <<self
       private :new

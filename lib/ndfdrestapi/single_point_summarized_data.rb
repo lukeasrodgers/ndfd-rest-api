@@ -1,6 +1,5 @@
 module NdfdRestApi
   class SinglePointSummarizedData < SummarizedData
-    attr_reader :data
 
     class <<self
       private :new
