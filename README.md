@@ -1,29 +1,5 @@
-# Ndfdrestapi
+# NdfdRestPpi
 
-TODO: Write a gem description
+Ruby gem to interact with the NOAA's NDFD REST web service.
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'ndfdrestapi'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install ndfdrestapi
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Not stable, not ready for production use.
