@@ -52,6 +52,8 @@ module NdfdRestApi
       locations
     end
 
+    private
+
     def parameters_for_point(point_key)
       if @data["parameters"].is_a? Hash
         @data["parameters"]
