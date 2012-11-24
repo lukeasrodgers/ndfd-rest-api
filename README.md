@@ -1,4 +1,4 @@
-# NdfdRestPpi
+# NdfdRestApi
 
 Ruby gem to interact with the NOAA's NDFD REST web service.
 
