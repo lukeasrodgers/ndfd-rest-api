@@ -1,6 +1,6 @@
 module NdfdRestApi
   class CurrentConditions
-    attr_reader :conditions
+    attr_reader :conditions, :units
 
     class <<self
       private :new
@@ -20,14 +20,17 @@ module NdfdRestApi
     end
 
     def initialize(response)
-      unless response.error
+      if response.error
+        raise "#{response.error[:message]}"
+      else
         @conditions = {}
-        parameters = response.data["parameters"]
+        parameters = response.parameters
         temperature = parameters["temperature"]
         max = temperature.detect{|temp| temp["@type"] == "maximum" }["value"]
         min = temperature.detect{|temp| temp["@type"] == "minimum" }["value"]
         @conditions[:max] = max.to_i
         @conditions[:min] = min.to_i
+        @units = temperature.first["@units"]
       end
     end
 
