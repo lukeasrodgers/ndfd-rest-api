@@ -8,11 +8,13 @@ module NdfdRestApi
 
       def get(client_type, params)
         uri = make_uri(NDFD_CLIENTS[client_type], params)
+        # pp uri
         open(uri)
       end
 
       def make_uri(client_type, params)
         query_string = self.query_stringify_params(params)
+        # pp query_string
         uri = "http://graphical.weather.gov/xml/sample_products/browser_interface/#{client_type}.php?" + query_string
       end
 
