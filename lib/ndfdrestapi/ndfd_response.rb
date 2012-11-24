@@ -120,7 +120,7 @@ module NdfdRestApi
       elsif weather_data["weather_conditions"][index]
         weather_data["weather_conditions"][index]["@weather_summary"]
       else
-        nil
+        weather_data["weather_conditions"][index]
       end
     end
 
