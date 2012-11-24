@@ -57,7 +57,7 @@ module NdfdRestApi
       if @data["parameters"].is_a? Hash
         @data["parameters"]
       elsif @data["parameters"].is_a? Array
-        @data["parameters"].detect{|parameter| parameter["@applicable-location"] == point_key}
+        @data["parameters"].detect{|parameter| parameter["@applicable_location"] == point_key}
       else
         raise TypeError.new("parameters is neither Hash nor Array")
       end
