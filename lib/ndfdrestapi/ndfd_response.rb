@@ -12,10 +12,6 @@ module NdfdRestApi
       end
     end
 
-    def parameters
-      @data["parameters"]
-    end
-
     def locations
       locations = @data["location"]
     end
@@ -40,14 +36,16 @@ module NdfdRestApi
       if (num_locations == 1)
         location = @data["location"]
         point_key = location["point_key"]
-        location_parameters = parameters_for_point(point_key)
-        location["days"] = days(location_parameters)
+        parameters = parameters_for_point(point_key)
+        location["days"] = days(parameters)
+        location["any_data"] = any_data?(parameters)
         locations << location
       else
         @data["location"].each{|location|
-          point_key = location["point_key"]
-          location_parameters = parameters_for_point(point_key)
-          location["days"] = days(location_parameters)
+          point_key = location["location_key"]
+          parameters = parameters_for_point(point_key)
+          location["days"] = days(parameters)
+          location["any_data"] = any_data?(parameters)
           locations << location
         }
       end
@@ -80,7 +78,12 @@ module NdfdRestApi
     end
 
     def temp(temperature_data, type, index)
-      temperature_data.detect{|temp| temp["@type"] == type}["value"][index]
+      temp = temperature_data.detect{|temp| temp["@type"] == type}
+      if (temp["value"].is_a? Array)
+        temp["value"][index]
+      else
+        temp["value"]
+      end
     end
 
     def pop(pop_data, index)
@@ -114,9 +117,15 @@ module NdfdRestApi
     def weather_summary(weather_data, index)
       if (weather_data["weather_conditions"].is_a? Hash)
         weather_data["weather_conditions"]["@weather_summary"]
-      else
+      elsif weather_data["weather_conditions"][index]
         weather_data["weather_conditions"][index]["@weather_summary"]
+      else
+        nil
       end
+    end
+
+    def any_data?(location_parameters)
+      temp(location_parameters ["temperature"], "maximum", 0) != nil
     end
 
   end
