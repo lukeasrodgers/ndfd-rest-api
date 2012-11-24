@@ -14,10 +14,6 @@ module NdfdRestApi
 
     end
 
-    def initialize(response)
-      super(response)
-    end
-
     def today
       @locations.first["days"].first
     end
