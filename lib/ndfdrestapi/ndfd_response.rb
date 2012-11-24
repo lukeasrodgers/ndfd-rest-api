@@ -69,7 +69,7 @@ module NdfdRestApi
         day = {}
         day["max"] = temp(parameters["temperature"], "maximum", i)
         day["min"] = temp(parameters["temperature"], "minimum", i)
-        day["pop"] = pop(parameters["probability_of_precipitation"], i)
+        day["pop"] = probability_of_precipitation(parameters["probability_of_precipitation"], i)
         day["weather"] = weather(parameters["weather"], i)
         i += 1
         days << day
@@ -86,7 +86,7 @@ module NdfdRestApi
       end
     end
 
-    def pop(pop_data, index)
+    def probability_of_precipitation(pop_data, index)
       if (pop_data["@type"] == "12 hour")
         morning = pop_data["value"][index].to_i
         afternoon = pop_data["value"][index + 1].to_i
