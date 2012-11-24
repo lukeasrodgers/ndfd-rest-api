@@ -8,7 +8,6 @@ module NdfdRestApi
         @error = {:message => parsed["error"]["pre"]}
       else
         @data = parsed["dwml"]["data"]
-        @num_days = num_days
         # pp @data
       end
     end
@@ -40,13 +39,15 @@ module NdfdRestApi
       locations = []
       if (num_locations == 1)
         location = @data["location"]
-        location["parameters"] = parameters_for_point(location["point_key"])
+        point_key = location["point_key"]
+        location_parameters = parameters_for_point(point_key)
+        location["days"] = days(location_parameters)
         locations << location
       else
         @data["location"].each{|location|
-          pp location
-          point_key = location["location_key"]
-          location["parameters"] = parameters_for_point(point_key)
+          point_key = location["point_key"]
+          location_parameters = parameters_for_point(point_key)
+          location["days"] = days(location_parameters)
           locations << location
         }
       end
@@ -60,6 +61,61 @@ module NdfdRestApi
         @data["parameters"].detect{|parameter| parameter["@applicable_location"] == point_key}
       else
         raise TypeError.new("parameters is neither Hash nor Array")
+      end
+    end
+
+    def days(parameters)
+      days = []
+      i = 0
+      while (i < num_days)
+        day = {}
+        day["max"] = temp(parameters["temperature"], "maximum", i)
+        day["min"] = temp(parameters["temperature"], "minimum", i)
+        day["pop"] = pop(parameters["probability_of_precipitation"], i)
+        day["weather"] = weather(parameters["weather"], i)
+        i += 1
+        days << day
+      end
+      days
+    end
+
+    def temp(temperature_data, type, index)
+      temperature_data.detect{|temp| temp["@type"] == type}["value"][index]
+    end
+
+    def pop(pop_data, index)
+      if (pop_data["@type"] == "12 hour")
+        morning = pop_data["value"][index].to_i
+        afternoon = pop_data["value"][index + 1].to_i
+        day = (morning + afternoon) / 2
+        {
+          "morning" => morning,
+          "afternoon" => afternoon,
+          "day" => day
+        }
+      else
+        {
+          "day" => pop_data["value"][index]
+        }
+      end
+    end
+
+    def weather(weather_data, index)
+      if (weather_data["@time_layout"].include? "24h")
+        weather_summary(weather_data, index)
+      else
+        {
+          "morning" => weather_summary(weather_data, index),
+          "afternoon" => weather_summary(weather_data, index + 1)
+        }
+      end
+    end
+
+    def weather_summary(weather_data, index)
+      if (weather_data["weather_conditions"].is_a? Hash)
+        weather_data["weather_conditions"]["@weather_summary"]
+      else
+        weather_data["weather_conditions"][index]["@weather_summary"]
       end
     end
 
