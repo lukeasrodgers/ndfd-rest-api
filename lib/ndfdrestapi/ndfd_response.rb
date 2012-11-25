@@ -69,6 +69,7 @@ module NdfdRestApi
       i = 0
       while (i < num_days)
         day = {}
+        day["date"] = date(i)
         day["max"] = temp(parameters["temperature"], "maximum", i)
         day["min"] = temp(parameters["temperature"], "minimum", i)
         day["pop"] = probability_of_precipitation(parameters["probability_of_precipitation"], i)
@@ -77,6 +78,14 @@ module NdfdRestApi
         days << day
       end
       days
+    end
+
+    def date(index)
+      if @data["time_layout"].first["start_valid_time"].is_a? Array
+        @data["time_layout"].first["start_valid_time"][index]
+      else
+        @data["time_layout"].first["start_valid_time"]
+      end
     end
 
     def temp(temperature_data, type, index)
@@ -106,6 +115,7 @@ module NdfdRestApi
     end
 
     def weather(weather_data, index)
+      # TODO make checking for period consistent
       if (weather_data["@time_layout"].include? "24h")
         weather_summary(weather_data, index)
       else
