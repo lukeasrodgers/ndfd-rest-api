@@ -1,7 +1,7 @@
 module NdfdRestApi
   class SinglePointUnsummarizedData < UnsummarizedData
 
-    class <<self
+    class << self
       private :new
 
       def fetch(params)
