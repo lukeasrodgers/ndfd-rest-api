@@ -6,7 +6,7 @@ module NdfdRestApi
       private :new
 
       def fetch(params)
-        massage_param_elements(params)
+        massage_param_elements!(params)
         xml_doc = HttpService.get(:unsummarized, params)
         if (params[:product] == "glance")
           response = UnsummarizedGlanceNdfdResponse.new(xml_doc)
@@ -20,7 +20,7 @@ module NdfdRestApi
 
       # take elements array of strings, and set as
       # symbol keys on params hash
-      def massage_param_elements(params)
+      def massage_param_elements!(params)
         elements = params[:elements]
         params.delete(:elements)
         elements.each{|element|
