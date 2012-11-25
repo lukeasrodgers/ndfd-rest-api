@@ -1,6 +1,6 @@
 module NdfdRestApi
   class HttpService
-    class <<self
+    class << self
       NDFD_CLIENTS = {
         :unsummarized => "ndfdXMLclient",
         :summarized => "ndfdBrowserClientByDay"

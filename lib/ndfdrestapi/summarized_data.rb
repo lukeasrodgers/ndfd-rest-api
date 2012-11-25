@@ -2,7 +2,7 @@ module NdfdRestApi
   class SummarizedData
     attr_reader :data, :locations
 
-    class <<self
+    class << self
       private :new
 
       def fetch(params)
