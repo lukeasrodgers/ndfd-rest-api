@@ -1,5 +1,6 @@
 require_relative "ndfdrestapi/http_service"
 require_relative "ndfdrestapi/ndfd_response"
+require_relative "ndfdrestapi/summarized_ndfd_response"
 require_relative "ndfdrestapi/unsummarized_glance_ndfd_response"
 require_relative "ndfdrestapi/unsummarized_time_series_ndfd_response"
 require_relative "ndfdrestapi/summarized_data"

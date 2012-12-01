@@ -7,7 +7,7 @@ module NdfdRestApi
 
       def fetch(params)
         xml_doc = HttpService.get(:summarized, params)
-        response = NdfdResponse.new(xml_doc)
+        response = SummarizedNdfdResopnse.new(xml_doc)
         new(response)
       end
 
