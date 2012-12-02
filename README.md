@@ -1,6 +1,6 @@
 # NdfdRestApi
 
-Ruby gem to interact with the NOAA's NDFD REST web service.
+Ruby gem to interact with the NOAA's NDFD REST web service (http://graphical.weather.gov/xml/rest.php).
 
 Not stable, not ready for production use.
 
