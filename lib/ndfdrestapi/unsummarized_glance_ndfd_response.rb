@@ -4,7 +4,6 @@ module NdfdRestApi
     def days(parameters)
       days = []
       i = 0
-      pp "days #{num_days}"
       while (i < num_days)
         day = {}
         day["date"] = date(i)
@@ -31,7 +30,6 @@ module NdfdRestApi
         end
       }
       periods
-      # pp "periods: #{periods}"
     end
 
     def hazard_periods(hazards_data)
