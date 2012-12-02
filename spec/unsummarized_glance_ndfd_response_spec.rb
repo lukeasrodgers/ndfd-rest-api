@@ -33,10 +33,28 @@ describe NdfdRestApi::UnsummarizedGlanceNdfdResponse do
         }
       }
     end
-    it "should include weather periods for each day" do
+    it "should include weather periods, with time_period, for each day" do
       @locations.each{|location|
         location["days"].each{|day|
-          day.should have_key("weather_periods")
+          day["weather_periods"].each{|wp|
+            wp.should have_key("time_period")
+          }
+        }
+      }
+    end
+    it "should include hazard periods for each day" do
+      @locations.each{|location|
+        location["days"].each{|day|
+          day.should have_key("hazard_periods")
+        }
+      }
+    end
+    it "should include cloud amount periods, with time_period, for each day" do
+      @locations.each{|location|
+        location["days"].each{|day|
+          day["cloud_amount_periods"].each{|cap|
+            cap.should have_key("time_period")
+          }
         }
       }
     end
