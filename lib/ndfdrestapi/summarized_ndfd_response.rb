@@ -1,5 +1,5 @@
 module NdfdRestApi
-  class SummarizedNdfdResopnse < NdfdResponse
+  class SummarizedNdfdResponse < NdfdResponse
 
     private
 
