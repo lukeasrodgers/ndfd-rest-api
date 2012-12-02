@@ -8,7 +8,6 @@ module NdfdRestApi
         @error = {:message => parsed["error"]["pre"]}
       else
         @data = parsed["dwml"]["data"]
-        # pp @data
       end
     end
 
