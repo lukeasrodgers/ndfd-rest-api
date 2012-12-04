@@ -7,6 +7,7 @@ require_relative "ndfdrestapi/summarized_data"
 require_relative "ndfdrestapi/single_point_summarized_data"
 require_relative "ndfdrestapi/zipcode_list_summarized_data"
 require_relative "ndfdrestapi/summarized_data_for_cities"
+require_relative "ndfdrestapi/summarized_data_for_subgrid"
 require_relative "ndfdrestapi/current_conditions"
 require_relative "ndfdrestapi/multiple_points_summarized_data"
 require_relative "ndfdrestapi/unsummarized_data"
@@ -34,6 +35,9 @@ module NdfdRestApi
     end
     def summarized_data_for_cities(cities, params)
       SummarizedDataForCities.fetch(cities, params)
+    end
+    def summarized_data_for_subgrid(grid_params, params)
+      SummarizedDataForSubgrid.fetch(grid_params, params)
     end
   end
 end
