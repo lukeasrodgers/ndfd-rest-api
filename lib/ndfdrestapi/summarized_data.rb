@@ -7,7 +7,7 @@ module NdfdRestApi
 
       def fetch(params)
         xml_doc = HttpService.get(:summarized, params)
-        response = SummarizedNdfdResopnse.new(xml_doc)
+        response = SummarizedNdfdResponse.new(xml_doc)
         new(response)
       end
 
@@ -19,7 +19,6 @@ module NdfdRestApi
       else
         @locations = response.parse_locations
         @data = response.data
-        # @units = temperature.first["@units"]
       end
     end
   end
