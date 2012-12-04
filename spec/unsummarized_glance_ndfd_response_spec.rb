@@ -61,4 +61,3 @@ describe NdfdRestApi::UnsummarizedGlanceNdfdResponse do
   end
 
 end
-
