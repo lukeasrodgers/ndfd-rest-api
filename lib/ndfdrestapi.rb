@@ -6,6 +6,7 @@ require_relative "ndfdrestapi/unsummarized_time_series_ndfd_response"
 require_relative "ndfdrestapi/summarized_data"
 require_relative "ndfdrestapi/single_point_summarized_data"
 require_relative "ndfdrestapi/zipcode_list_summarized_data"
+require_relative "ndfdrestapi/summarized_data_for_line"
 require_relative "ndfdrestapi/summarized_data_for_cities"
 require_relative "ndfdrestapi/summarized_data_for_subgrid"
 require_relative "ndfdrestapi/current_conditions"
@@ -29,6 +30,9 @@ module NdfdRestApi
     end
     def spu(params)
       SinglePointUnsummarizedData.fetch(params)
+    end
+    def summarized_data_for_line(line_params, params)
+      SummarizedDataForLine.fetch(line_params, params)
     end
     def zu(zipcodes, params)
       ZipcodeListSummarizedData.fetch(zipcodes, params)
