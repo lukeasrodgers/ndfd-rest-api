@@ -1,5 +1,5 @@
 module NdfdRestApi
-  class UnsummarizedTimeSeriesNdfdResponse < NdfdResponse
+  class UnsummarizedTimeSeriesNdfdResponse < UnsummarizedNdfdResponse
 
   end
 end
