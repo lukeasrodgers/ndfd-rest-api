@@ -6,12 +6,9 @@ module NdfdRestApi
 
       def fetch(zipcodes, params)
         zipcodes = zipcodes.join("+")
-        massaged_params = {
-          :zipCodeList => zipcodes,
-          :format => params[:format] || "12 hourly",
-          :numDays => params[:days] || 1,
-          :unit => params[:unit] || "e"
-        }
+        massaged_params = params.merge({
+          :zipCodeList => zipcodes
+        })
         super(massaged_params)
       end
 
